@@ -3,10 +3,10 @@
 //! [unist]: https://github.com/syntax-tree/unist
 
 use alloc::fmt;
+use serde::{Deserialize, Serialize};
 
 /// One place in a source file.
-#[derive(Clone, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[derive(Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Point {
     /// 1-indexed integer representing a line in a source file.
     pub line: usize,
@@ -34,8 +34,7 @@ impl fmt::Debug for Point {
 }
 
 /// Location of a node in a source file.
-#[derive(Clone, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[derive(Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Position {
     /// Represents the place of the first character of the parsed source region.
     pub start: Point,
