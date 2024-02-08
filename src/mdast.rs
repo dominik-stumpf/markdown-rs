@@ -474,7 +474,7 @@ pub enum AttributeValue {
     /// > | <a b="c" />
     ///          ^^^
     /// ```
-    #[cfg_attr(feature = "serde", serde(rename = "literal"))]
+    #[serde(rename = "literal")]
     Literal(String),
 }
 
@@ -896,7 +896,7 @@ pub struct ImageReference {
     pub alt: String,
     // Reference.
     /// Explicitness of a reference.
-    #[cfg_attr(feature = "serde", serde(rename = "referenceType"))]
+    #[serde(rename = "referenceType")]
     pub reference_kind: ReferenceKind,
     // Association.
     /// Value that can match another node.
