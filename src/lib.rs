@@ -244,15 +244,15 @@ pub fn to_mdast(value: &str, options: &ParseOptions) -> Result<mdast::Node, Stri
     Ok(node)
 }
 
-pub fn mdast_to_hast(mdast: mdast::Node) -> hast::Node {
+pub fn mdast_to_hast(mdast: mdast::Node) -> Result<hast::Node, String> {
     let hast = mdast_util_to_hast(&mdast);
 
-    return hast;
+    Ok(hast)
 }
 
-pub fn md_to_hast(markdown: &str, options: ParseOptions) -> hast::Node {
+pub fn md_to_hast(markdown: &str, options: &ParseOptions) -> Result<hast::Node, String> {
     let mdast = to_mdast(markdown, &options).unwrap();
     let hast = mdast_util_to_hast(&mdast);
 
-    return hast;
+    Ok(hast)
 }

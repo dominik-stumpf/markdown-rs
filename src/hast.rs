@@ -148,7 +148,7 @@ impl Node {
 ///     ^
 /// ```
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-// #[serde(tag = "type", rename = "root")]
+#[serde(tag = "type", rename = "root")]
 pub struct Root {
     // Parent.
     /// Content model.
