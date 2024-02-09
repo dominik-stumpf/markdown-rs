@@ -1,4 +1,3 @@
-#![no_std]
 #![allow(clippy::doc_link_with_quotes)]
 #![allow(clippy::missing_panics_doc)]
 #![deny(clippy::pedantic)]
