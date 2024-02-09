@@ -1,9 +1,15 @@
+#![no_std]
+#![allow(clippy::doc_link_with_quotes)]
+#![allow(clippy::missing_panics_doc)]
 #![deny(clippy::pedantic)]
 #![allow(clippy::must_use_candidate)]
 #![allow(clippy::too_many_lines)]
 #![allow(clippy::struct_excessive_bools)]
 #![allow(clippy::cast_possible_truncation)]
 #![allow(clippy::cast_precision_loss)]
+#![doc(
+    html_logo_url = "https://raw.githubusercontent.com/wooorm/markdown-rs/8924580/media/logo-monochromatic.svg?sanitize=true"
+)]
 
 // extern crate markdown;
 mod hast;

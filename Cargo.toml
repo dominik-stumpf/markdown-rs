@@ -6,7 +6,6 @@ edition = "2018"
 rust-version = "1.56"
 description = "CommonMark compliant markdown parser in Rust with ASTs and extensions"
 homepage = "https://github.com/wooorm/markdown-rs"
-repository = "https://github.com/wooorm/markdown-rs"
 license = "MIT"
 keywords = ["commonmark", "markdown", "parse", "render", "tokenize"]
 categories = ["compilers", "encoding", "parser-implementations", "parsing", "text-processing"]
