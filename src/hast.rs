@@ -6,9 +6,12 @@
 extern crate alloc;
 pub use crate::mdast::{AttributeContent, AttributeValue, MdxJsxAttribute, Stop};
 use crate::unist::Position;
+use serde::{Deserialize, Serialize};
+use serde_with::{serde_as, DisplayFromStr, Map};
 
 /// Nodes.
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum Node {
     /// Root.
     Root(Root),
@@ -144,7 +147,8 @@ impl Node {
 /// > | a
 ///     ^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+// #[serde(tag = "type", rename = "root")]
 pub struct Root {
     // Parent.
     /// Content model.
@@ -159,11 +163,15 @@ pub struct Root {
 /// > | <!doctype html>
 ///     ^^^^^^^^^^^^^^^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[serde_as]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "element")]
 pub struct Element {
     /// Tag name.
+    #[serde(rename = "tagName")]
     pub tag_name: String,
     /// Properties.
+    #[serde_as(as = "Map<DisplayFromStr, _>")]
     pub properties: Vec<(String, PropertyValue)>,
     // Parent.
     /// Children.
@@ -173,7 +181,8 @@ pub struct Element {
 }
 
 /// Property value.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum PropertyValue {
     /// A boolean.
     Boolean(bool),
@@ -191,7 +200,8 @@ pub enum PropertyValue {
 /// > | <!doctype html>
 ///     ^^^^^^^^^^^^^^^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "doctype")]
 pub struct Doctype {
     // Void.
     /// Positional info.
@@ -204,7 +214,8 @@ pub struct Doctype {
 /// > | <!-- a -->
 ///     ^^^^^^^^^^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "comment")]
 pub struct Comment {
     // Text.
     /// Content model.
@@ -219,7 +230,8 @@ pub struct Comment {
 /// > | a
 ///     ^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "text")]
 pub struct Text {
     // Text.
     /// Content model.
@@ -234,7 +246,8 @@ pub struct Text {
 /// > | <a />
 ///     ^^^^^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "lowercase")]
 pub struct MdxJsxElement {
     // JSX element.
     /// Name.
@@ -256,7 +269,8 @@ pub struct MdxJsxElement {
 /// > | {a}
 ///     ^^^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "lowercase")]
 pub struct MdxExpression {
     // Literal.
     /// Content model.
@@ -274,7 +288,8 @@ pub struct MdxExpression {
 /// > | import a from 'b'
 ///     ^^^^^^^^^^^^^^^^^
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", rename = "lowercase")]
 pub struct MdxjsEsm {
     // Literal.
     /// Content model.
