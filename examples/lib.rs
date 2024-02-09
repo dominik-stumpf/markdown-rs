@@ -1,3 +1,5 @@
+use serde_json;
+
 fn main() -> Result<(), String> {
     // Turn on debugging.
     // You can show it with `RUST_LOG=debug cargo run --features log --example lib`
@@ -38,6 +40,24 @@ fn main() -> Result<(), String> {
             "# <HelloMessage />, {username}!",
             &markdown::ParseOptions::mdx()
         )?
+    );
+
+    println!(
+        "{}",
+        serde_json::to_string_pretty(
+            &markdown::to_mdast("> blockquote *italic*", &markdown::ParseOptions::default())
+                .unwrap()
+        )
+        .unwrap()
+    );
+
+    println!(
+        "{}",
+        serde_json::to_string_pretty(&markdown::md_to_hast(
+            "> blockquote *italic*",
+            &markdown::ParseOptions::default()
+        ))
+        .unwrap()
     );
 
     Ok(())
