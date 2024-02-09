@@ -10,4 +10,5 @@ fn main() {
 
     println!("{}", mdast_serialized);
     println!("{:?}", hast);
+    println!("{}", to_string_pretty(&hast).unwrap());
 }

@@ -134,7 +134,6 @@ mod util;
 pub mod mdast; // To do: externalize?
 pub mod unist; // To do: externalize.
 
-
 #[doc(hidden)]
 pub use util::identifier::{id_cont, id_start};
 
@@ -248,12 +247,12 @@ pub fn to_mdast(value: &str, options: &ParseOptions) -> Result<mdast::Node, Stri
 pub fn mdast_to_hast(mdast: mdast::Node) -> hast::Node {
     let hast = mdast_util_to_hast(&mdast);
 
-    return hast
+    return hast;
 }
 
 pub fn md_to_hast(markdown: &str, options: ParseOptions) -> hast::Node {
     let mdast = to_mdast(markdown, &options).unwrap();
     let hast = mdast_util_to_hast(&mdast);
 
-    return hast
+    return hast;
 }
