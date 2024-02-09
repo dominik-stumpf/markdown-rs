@@ -10,24 +10,25 @@ mod hast;
 mod hast_util_to_swc;
 mod mdast_util_to_hast;
 mod mdx_plugin_recma_document;
-mod mdx_plugin_recma_jsx_rewrite;
+// mod mdx_plugin_recma_jsx_rewrite;
 mod swc;
-mod swc_util_build_jsx;
+// mod swc_util_build_jsx;
 mod swc_utils;
 
-use crate::{
-    hast_util_to_swc::hast_util_to_swc,
-    mdast_util_to_hast::mdast_util_to_hast,
-    mdx_plugin_recma_document::{mdx_plugin_recma_document, Options as DocumentOptions},
-    mdx_plugin_recma_jsx_rewrite::{mdx_plugin_recma_jsx_rewrite, Options as RewriteOptions},
-    swc::{parse_esm, parse_expression, serialize},
-    swc_util_build_jsx::{swc_util_build_jsx, Options as BuildOptions},
-};
+// use crate::{
+//     hast_util_to_swc::hast_util_to_swc,
+//     mdast_util_to_hast::mdast_util_to_hast,
+//     mdx_plugin_recma_document::{mdx_plugin_recma_document, Options as DocumentOptions},
+//     mdx_plugin_recma_jsx_rewrite::{mdx_plugin_recma_jsx_rewrite, Options as RewriteOptions},
+//     swc::{parse_esm, parse_expression, serialize},
+//     swc_util_build_jsx::{swc_util_build_jsx, Options as BuildOptions},
+// };
 
 // use crate::{to_mdast, Constructs, Location, ParseOptions};
 
-pub use crate::configuration::{MdxConstructs, MdxParseOptions};
-pub use crate::mdx_plugin_recma_document::JsxRuntime;
+// pub use crate::configuration::{MdxConstructs, MdxParseOptions};
+pub use crate::mdast_util_to_hast::mdast_util_to_hast;
+// pub use crate::mdx_plugin_recma_document::JsxRuntime;
 
 /// Turn MDX into JavaScript.
 ///
@@ -133,12 +134,6 @@ mod util;
 pub mod mdast; // To do: externalize?
 pub mod unist; // To do: externalize.
 
-pub fn md_to_hast(value: &str) -> hast::Node {
-    let mdast = to_mdast(value, &ParseOptions::default()).unwrap();
-    let hast = mdast_util_to_hast(&mdast);
-
-    return hast
-}
 
 #[doc(hidden)]
 pub use util::identifier::{id_cont, id_start};
@@ -248,4 +243,17 @@ pub fn to_mdast(value: &str, options: &ParseOptions) -> Result<mdast::Node, Stri
     let (events, parse_state) = parser::parse(value, options)?;
     let node = to_mdast::compile(&events, parse_state.bytes)?;
     Ok(node)
+}
+
+pub fn mdast_to_hast(mdast: mdast::Node) -> hast::Node {
+    let hast = mdast_util_to_hast(&mdast);
+
+    return hast
+}
+
+pub fn md_to_hast(markdown: &str, options: ParseOptions) -> hast::Node {
+    let mdast = to_mdast(markdown, &options).unwrap();
+    let hast = mdast_util_to_hast(&mdast);
+
+    return hast
 }

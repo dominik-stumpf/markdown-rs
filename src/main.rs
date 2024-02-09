@@ -6,7 +6,7 @@ fn main() {
 
     let mdast = markdown::to_mdast(&markdown, &markdown::ParseOptions::default()).unwrap();
     let mdast_serialized = to_string_pretty(&mdast).unwrap();
-    let hast = md_to_hast(&markdown);
+    let hast = md_to_hast(&markdown, ParseOptions::gfm());
 
     println!("{}", mdast_serialized);
     println!("{:?}", hast);
