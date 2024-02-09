@@ -1,3 +1,10 @@
+# About this fork
+
+This repo is a fork of [markdown-rs](https://github.com/wooorm/markdown-rs) that has been merged with some parts of [mdxjs-rs](https://github.com/wooorm/mdxjs-rs) that allows me to expose funcions such as `md_to_hast` and `mdast_to_hast`.
+At the time of writing markdown-rs has a serde issue where it duplicated node types or just didn't work at all. This is fixed here, planning to do a PR, but it's not working fully yet.
+
+Below is the original readme of markdown-rs:
+
 <p align="center">
   <br>
   <img width="192" src="media/logo-chromatic.svg" alt="">
