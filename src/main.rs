@@ -5,10 +5,11 @@ fn main() {
     let markdown = r#"[link](https://example.com)"#.trim();
 
     let mdast = markdown::to_mdast(&markdown, &markdown::ParseOptions::default()).unwrap();
-    let mdast_serialized = to_string_pretty(&mdast).unwrap();
+    let _mdast_serialized = to_string_pretty(&mdast).unwrap();
     let hast = md_to_hast(&markdown, ParseOptions::gfm());
+    let hast_serialized = to_string_pretty(&hast).unwrap();
 
-    println!("{}", mdast_serialized);
+    // println!("{}", mdast_serialized);
     println!("{:?}", hast);
-    println!("{}", to_string_pretty(&hast).unwrap());
+    println!("{}", hast_serialized);
 }
