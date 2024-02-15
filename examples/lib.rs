@@ -1,3 +1,4 @@
+use markdown::{Constructs, ParseOptions};
 use serde_json;
 
 fn main() -> Result<(), String> {
@@ -40,6 +41,31 @@ fn main() -> Result<(), String> {
             "# <HelloMessage />, {username}!",
             &markdown::ParseOptions::mdx()
         )?
+    );
+
+    let markdown_options = ParseOptions {
+        constructs: Constructs {
+            frontmatter: true,
+            ..Constructs::default()
+        },
+        ..ParseOptions::default()
+    };
+
+    println!(
+        "{:?}",
+        markdown::to_mdast(
+            r#"
+    ---
+    one: alpha
+    two: beta
+    three: 324
+    four: https://example.com
+    ---
+
+    # <HelloMessage />, {username}!"#
+                .trim(),
+            &markdown_options
+        )
     );
 
     println!(
