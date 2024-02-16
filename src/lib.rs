@@ -11,7 +11,7 @@
 )]
 
 // extern crate markdown;
-mod hast;
+pub mod hast;
 mod hast_util_to_swc;
 mod mdast_util_to_hast;
 mod mdx_plugin_recma_document;
